@@ -20,6 +20,7 @@
 (yes, this is ugly)
 
 An example:
+
     (define-constant +mapred-reminders+ "{
         \"inputs\":\"reminder\",
         \"query\":[
