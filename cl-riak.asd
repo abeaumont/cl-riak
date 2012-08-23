@@ -4,7 +4,7 @@
   :serial t
   :depends-on (#:drakma
                #:alexandria
-	       #:split-sequence)
+	             #:split-sequence)
   :components ((:file "package")
                (:file "cl-riak")))
 
