@@ -17,22 +17,20 @@
     "a85hYGBgzGDKBVIcypz/fvql33qYwZTImMfK8CHsznG+LAA="
 
 ## MapReduce
-(yes, this is ugly)
 
-An example:
+An example taken from the "Riak Fast Track" from wiki.basho.com.
 
-    (define-constant +mapred-reminders+ "{
-        \"inputs\":\"reminder\",
-        \"query\":[
-        {
-            \"map\":{
-            \"language\":\"javascript\",
-            \"source\":\"function (v, k, a) {var data = Riak.mapValuesJson(v)[0]; if (data.username == '~a') {return [{'key':v.key, 'value':v.values[0].data}];} else {return [];}}\",
-            \"keep\":true
-            }
-        }
-        ]
-    }" :test 'string=)
+http://wiki.basho.com/Loading-Data-and-Running-MapReduce-Queries.html
 
-    (let ((reminders (cl-riak:mapred (format nil +mapred-reminders+ username))))
-         ...)
+    (defparameter *over-600-jsfunc*
+      "function (value, keyData, arg) {
+         var data = Riak.mapValuesJson(value)[0];
+         if(data.High && data.High > 600.00)
+           return [value.key];
+         else return [];
+       }")
+
+    (let ((over600 (cl-riak:mapred "goog" 
+                      (list (cl-riak:mrquery "map" :language "javascript" :keep t
+                                :source *over-600-jsfunc*)))))
+      (loop for res in over600 do (format t "~a~%" res)))
