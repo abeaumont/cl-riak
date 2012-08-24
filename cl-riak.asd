@@ -6,5 +6,6 @@
                #:alexandria
 	             #:split-sequence)
   :components ((:file "package")
-               (:file "basicops")))
+               (:file "basicops")
+               (:file "mapreduce")))
 
