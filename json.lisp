@@ -12,12 +12,6 @@
         (t (concatenate 'string (car lst) psep (cadr lst) lsep 
                         (join-plist psep lsep (cddr lst))))))
 
-(defun join-alist (psep lsep lst)
-  (cond ((null lst) "")
-        ((null (cdr lst)) (concatenate 'string (caar lst) psep (cdar lst)))
-        (t (concatenate 'string (caar lst) psep (cdar lst) lsep
-                        (join-alist psep lsep (cdr lst))))))
-
 (defun list-json (lst)
   (concatenate 'string "[" 
                (join-list ", " (mapcar #'encode-json lst)) "]"))
@@ -26,12 +20,22 @@
   (concatenate 'string "{" 
                (join-plist ": " ", " (mapcar #'encode-json lst)) "}"))
 
-(defun alist-join (lst)
+(defun pair-json (pair)
+  (concatenate 'string (encode-json (car pair)) ": " 
+               (encode-json (cdr pair))))
+
+(defun alist-json (lst)
   (concatenate 'string "{" 
-               (join-alist ": " ", " (mapcar #'encode-json lst)) "}"))
+               (join-list ", " (mapcar #'pair-json lst)) "}"))
+
+(defun atom-json (atm)
+  (cond ((eq atm t) "true")
+        ((eq atm nil) "false")
+        ((or (integerp atm) (floatp atm) (stringp atm)) (write-to-string atm))
+        (t (error (format nil "~a cannot be converted to json" atm)))))
 
 (defun encode-json (obj)
-  (if (atom obj) (write-to-string obj)
+  (if (atom obj) (atom-json obj)
     (let ((ltype (car obj)))
       (case ltype
         (:plist (plist-json (cdr obj)))
