@@ -6,5 +6,5 @@
                #:alexandria
 	             #:split-sequence)
   :components ((:file "package")
-               (:file "cl-riak")))
+               (:file "basicops")))
 
