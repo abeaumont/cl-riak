@@ -4,4 +4,6 @@
   (:use #:cl #:split-sequence #:alexandria #:json)
   (:import-from #:drakma #:url-encode)
   (:shadow #:get #:set #:delete)
-  (:export #:get #:set #:delete #:mapred #:mrquery))
+  (:export #:get #:set #:delete 
+           #:mapred #:mrquery
+           #:set-bucket-props #:get-bucket-props))

@@ -8,5 +8,6 @@
                #:split-sequence)
   :components ((:file "package")
                (:file "basicops")
+               (:file "bucketadmin")
                (:file "mapreduce")))
 
