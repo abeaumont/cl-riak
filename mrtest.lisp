@@ -9,6 +9,6 @@
    }")
 
 (let ((over600 (cl-riak:mapred "goog" 
-                  (list (cl-riak:mrquery "map" :language "javascript" :keep t
+                  (list (cl-riak:mrphase "map" :language "javascript" :keep t
                             :source *over-600-jsfunc*)))))
   (loop for res in over600 do (format t "~a~%" res)))

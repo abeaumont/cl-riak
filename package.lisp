@@ -5,5 +5,5 @@
   (:import-from #:drakma #:url-encode)
   (:shadow #:get #:set #:delete)
   (:export #:get #:set #:delete 
-           #:mapred #:mrquery
+           #:mapred #:mrphase
            #:set-bucket-props #:get-bucket-props))

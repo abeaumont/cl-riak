@@ -16,5 +16,5 @@
     (cons (cons (car lst) (cadr lst))
           (plist->alist (cddr lst)))))
 
-(defun mrquery (qtype &rest body)
+(defun mrphase (qtype &rest body)
   (list (cons qtype (plist->alist body))))
