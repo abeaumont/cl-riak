@@ -37,7 +37,7 @@
           :content-type content-type
           :content value
           :parameters '(("returnbody" . "true"))
-          :additional-headers (when vclock '(("X-Riak-Vclock" . vclock))))
+          :additional-headers (when vclock `(("X-Riak-Vclock" . ,vclock))))
       (let* ((vclock (cdr (assoc :x-riak-vclock headers)))
 	           (location (cdr (assoc :location headers)))
 	           (key-name (lastcar (split-sequence #\/ location))))
